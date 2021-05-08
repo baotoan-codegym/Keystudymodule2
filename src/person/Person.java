@@ -1,10 +1,10 @@
 package person;
 
-import java.io.Serializable;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Person implements Serializable {
+public class Person {
     private String name;
     private int IDCard;
     private String email;
