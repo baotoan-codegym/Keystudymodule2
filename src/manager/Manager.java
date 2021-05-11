@@ -2,13 +2,22 @@ package manager;
 
 import person.Person;
 import room.Room;
+import storage.ReadWrite;
+import storage.TestFile;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Manager {
-    private static ArrayList<Room> rooms = new ArrayList<>();
+
+    //room
+    private ReadWrite<Room> liRoomReadWrite = ReadWrite.getINSTANCE();
+    private ArrayList<Room> rooms = liRoomReadWrite.readFile("room.txt");
+    //person
+    private ReadWrite<Person> liPersonReadWrite = ReadWrite.getINSTANCE();
+    private ArrayList<Person> persons = liPersonReadWrite.readFile("person.txt");
+
     private Scanner sc = new Scanner(System.in);
     public Manager() {
     }
@@ -26,7 +35,9 @@ public class Manager {
         System.out.println("Kiểu phòng 1. Vip  2.Thường");
         int choose = sc.nextInt();
         rooms.add(new Room(id,price,typeOfRoom(choose)));
+        setWrite();
         priceSoft();
+
     }
 
     // thay đổi thông tin của phòng theo id
@@ -75,6 +86,8 @@ public class Manager {
         for (int i = 0; i < rooms.size(); i++) {
             if(rooms.get(i).getIdOfRoom()==id){
                 rooms.remove(i);
+                setWrite();
+
             }
         }
     }
@@ -290,5 +303,8 @@ public class Manager {
         if (choose==1) return "VIP";
         else if (choose==2) return "Thường";
         else return null;
+    }
+    public void  setWrite(){
+        liRoomReadWrite.writeFile(rooms,"room.txt");
     }
 }

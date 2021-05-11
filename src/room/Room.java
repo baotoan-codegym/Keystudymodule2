@@ -1,11 +1,13 @@
 package room;
 
 import person.Person;
+import storage.TestFile;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Room implements Serializable {
+public class Room  implements Serializable {
+
     private String idOfRoom;
     private double pricePerDay;
     private String typeOfRoom;
@@ -71,12 +73,14 @@ public class Room implements Serializable {
     public void addCustomer(Person customer){
         customers.add(customer);
         checkStatus();
+
     }
     public void remoteCustomer(int index){
         customers.remove(index);
         checkStatus();
     }
     public void checkStatus(){
+
         if (customers.size()>0) this.status = false;
         else this.status = true;
     }
